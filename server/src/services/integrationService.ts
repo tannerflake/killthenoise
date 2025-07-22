@@ -17,6 +17,7 @@ export interface RawIssueData {
   source_id: string;
   severity?: number;
   frequency?: number;
+  type: 'bug' | 'feature';
   tags?: string[];
   metadata?: Record<string, any>;
 }
@@ -42,6 +43,7 @@ export class IntegrationService {
         source_id: 'C1234567890',
         severity: 4,
         frequency: 15,
+        type: 'bug',
         tags: ['ios', 'crash', 'urgent'],
         metadata: {
           channel: 'customer-support',
@@ -57,11 +59,60 @@ export class IntegrationService {
         source_id: 'C1234567891',
         severity: 3,
         frequency: 8,
+        type: 'bug',
         tags: ['login', 'authentication'],
         metadata: {
           channel: 'bug-reports',
           message_count: 8,
           first_reported: '2024-01-14T14:20:00Z'
+        }
+      },
+      {
+        id: 'slack_3',
+        title: 'Dark mode support requested',
+        description: 'Users requesting dark mode theme option',
+        source: 'slack',
+        source_id: 'C1234567892',
+        severity: 2,
+        frequency: 12,
+        type: 'feature',
+        tags: ['ui', 'theme', 'dark-mode'],
+        metadata: {
+          channel: 'feature-requests',
+          message_count: 12,
+          first_reported: '2024-01-13T09:45:00Z'
+        }
+      },
+      {
+        id: 'slack_4',
+        title: 'Mobile app push notifications',
+        description: 'Users want push notifications for important updates',
+        source: 'slack',
+        source_id: 'C1234567893',
+        severity: 3,
+        frequency: 18,
+        type: 'feature',
+        tags: ['mobile', 'notifications', 'push'],
+        metadata: {
+          channel: 'feature-requests',
+          message_count: 18,
+          first_reported: '2024-01-12T11:20:00Z'
+        }
+      },
+      {
+        id: 'slack_5',
+        title: 'Advanced search filters',
+        description: 'Need better search functionality with filters',
+        source: 'slack',
+        source_id: 'C1234567894',
+        severity: 2,
+        frequency: 9,
+        type: 'feature',
+        tags: ['search', 'filters', 'ui'],
+        metadata: {
+          channel: 'feature-requests',
+          message_count: 9,
+          first_reported: '2024-01-11T16:30:00Z'
         }
       }
     ];
@@ -89,11 +140,28 @@ export class IntegrationService {
         source_id: 'ticket_12345',
         severity: 5,
         frequency: 25,
+        type: 'bug',
         tags: ['payment', 'checkout', 'critical'],
         metadata: {
           ticket_id: '12345',
           customer_tier: 'enterprise',
           first_reported: '2024-01-13T09:15:00Z'
+        }
+      },
+      {
+        id: 'hubspot_2',
+        title: 'Integration with CRM systems',
+        description: 'Enterprise customers requesting CRM integration capabilities',
+        source: 'hubspot',
+        source_id: 'ticket_12346',
+        severity: 3,
+        frequency: 14,
+        type: 'feature',
+        tags: ['integration', 'crm', 'enterprise'],
+        metadata: {
+          ticket_id: '12346',
+          customer_tier: 'enterprise',
+          first_reported: '2024-01-10T14:45:00Z'
         }
       }
     ];
@@ -121,12 +189,30 @@ export class IntegrationService {
         source_id: 'PROJ-123',
         severity: 4,
         frequency: 12,
+        type: 'bug',
         tags: ['database', 'performance', 'backend'],
         metadata: {
           issue_key: 'PROJ-123',
           assignee: 'dev-team',
           priority: 'high',
           first_reported: '2024-01-12T16:45:00Z'
+        }
+      },
+      {
+        id: 'jira_2',
+        title: 'Add export to PDF functionality',
+        description: 'Users need ability to export reports to PDF format',
+        source: 'jira',
+        source_id: 'PROJ-124',
+        severity: 3,
+        frequency: 8,
+        type: 'feature',
+        tags: ['export', 'pdf', 'reports'],
+        metadata: {
+          issue_key: 'PROJ-124',
+          assignee: 'frontend-team',
+          priority: 'medium',
+          first_reported: '2024-01-11T13:20:00Z'
         }
       }
     ];
@@ -154,6 +240,7 @@ export class IntegrationService {
         source_id: 'doc_abc123',
         severity: 2,
         frequency: 5,
+        type: 'feature',
         tags: ['ui', 'ux', 'feedback'],
         metadata: {
           document_id: 'abc123',
@@ -196,6 +283,7 @@ export class IntegrationService {
             severity: data.severity || 1,
             frequency: data.frequency || 1,
             status: 'open',
+            type: data.type,
             tags: data.tags || []
           });
         }

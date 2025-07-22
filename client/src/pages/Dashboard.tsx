@@ -11,10 +11,13 @@ interface Issue {
   severity: number;
   frequency: number;
   status: string;
+  type: 'bug' | 'feature';
   tags?: string[];
   created_at: string;
   updated_at: string;
 }
+
+
 
 interface ApiResponse {
   success: boolean;
@@ -24,8 +27,10 @@ interface ApiResponse {
 
 const Dashboard: React.FC = () => {
   const [issues, setIssues] = useState<Issue[]>([]);
+  const [filteredIssues, setFilteredIssues] = useState<Issue[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [typeFilter, setTypeFilter] = useState<string>('all');
   const [stats, setStats] = useState({
     totalIssues: 0,
     criticalIssues: 0,
@@ -36,6 +41,14 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     fetchTopIssues();
   }, []);
+
+  useEffect(() => {
+    if (typeFilter === 'all') {
+      setFilteredIssues(issues);
+    } else {
+      setFilteredIssues(issues.filter(issue => issue.type === typeFilter));
+    }
+  }, [issues, typeFilter]);
 
   const fetchTopIssues = async () => {
     try {
@@ -109,10 +122,27 @@ const Dashboard: React.FC = () => {
           {/* Issues Table - Full Width */}
           <div className="card">
             <div className="card-header">
-              <h3>Top Product Issues</h3>
-              <p className="text-secondary mb-0">
-                Ranked by frequency and severity
-              </p>
+              <div className="d-flex justify-between align-center">
+                <div>
+                  <h3>Top Product Issues</h3>
+                  <p className="text-secondary mb-0">
+                    Ranked by frequency and severity
+                  </p>
+                </div>
+                <div className="filter-controls">
+                  <label htmlFor="typeFilter" className="mr-2">Type:</label>
+                  <select 
+                    id="typeFilter"
+                    value={typeFilter} 
+                    onChange={(e) => setTypeFilter(e.target.value)}
+                    className="form-select"
+                  >
+                    <option value="all">All Types</option>
+                    <option value="bug">Bugs</option>
+                    <option value="feature">FR</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div className="card-body">
               {loading ? (
@@ -120,7 +150,7 @@ const Dashboard: React.FC = () => {
                   <p>Loading issues...</p>
                 </div>
               ) : (
-                <IssueTable issues={issues} />
+                <IssueTable issues={filteredIssues} />
               )}
             </div>
           </div>

@@ -90,6 +90,33 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.speaker-container {
+  display: flex;
+  align-items: center;
+}
+
+.waveform {
+  display: flex;
+  align-items: center;
+}
+
 .logo h1 {
   color: var(--primary-color);
   font-size: var(--font-size-xl);
@@ -331,6 +358,48 @@ a:hover {
   color: #475569;
 }
 
+.badge-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Form Controls */
+.form-select {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: white;
+  font-size: var(--font-size-sm);
+  min-width: 120px;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.filter-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Type column styling */
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 80px;
+  text-align: center;
+}
+
+/* Larger emoji badges for type column */
+.table td:nth-child(2) .badge {
+  font-size: 1.2rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  min-width: 40px;
+  justify-content: center;
+}
+
 /* Integration Status */
 .integration-item {
   padding: var(--spacing-sm) 0;
@@ -529,5 +598,26 @@ a:hover {
   .nav-list {
     flex-direction: column;
     gap: var(--spacing-sm);
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .logo {
+    gap: var(--spacing-xs);
+  }
+
+  .logo h1 {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Smaller emojis on mobile */
+  .table td:nth-child(2) .badge {
+    font-size: 1rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-width: 35px;
   }
 } 

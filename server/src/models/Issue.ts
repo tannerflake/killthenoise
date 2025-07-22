@@ -10,6 +10,7 @@ export interface Issue {
   severity: number;
   frequency: number;
   status: string;
+  type: 'bug' | 'feature';
   tags?: string[];
   created_at?: Date;
   updated_at?: Date;
@@ -32,6 +33,7 @@ export class IssueModel {
     source?: string;
     status?: string;
     severity?: number;
+    type?: string;
     limit?: number;
     offset?: number;
   }): Promise<Issue[]> {
@@ -55,6 +57,11 @@ export class IssueModel {
       if (filters.severity) {
         conditions.push(`severity = $${paramIndex++}`);
         params.push(filters.severity);
+      }
+      
+      if (filters.type) {
+        conditions.push(`type = $${paramIndex++}`);
+        params.push(filters.type);
       }
 
       if (conditions.length > 0) {
@@ -87,8 +94,8 @@ export class IssueModel {
   // Create new issue
   static async create(issueData: Omit<Issue, 'id' | 'created_at' | 'updated_at'>): Promise<Issue> {
     const query = `
-      INSERT INTO issues (title, description, source, source_id, severity, frequency, status, tags)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      INSERT INTO issues (title, description, source, source_id, severity, frequency, status, type, tags)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *
     `;
     
@@ -100,6 +107,7 @@ export class IssueModel {
       issueData.severity,
       issueData.frequency,
       issueData.status,
+      issueData.type,
       issueData.tags
     ];
 

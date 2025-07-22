@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="container">
         <div className="d-flex justify-between align-center">
-          <Link to="/" className="logo">
-            <h1>KillTheNoise.ai</h1>
+          <Link to="/" className="logo-link">
+            <Logo />
           </Link>
           
           <nav className="nav">

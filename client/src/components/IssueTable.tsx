@@ -8,6 +8,7 @@ interface Issue {
   severity: number;
   frequency: number;
   status: string;
+  type: 'bug' | 'feature';
   tags?: string[];
   created_at: string;
   updated_at: string;
@@ -35,6 +36,14 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
     }
   };
 
+  const getTypeBadge = (type: string) => {
+    switch (type) {
+      case 'bug': return <span className="badge badge-danger">🐛</span>;
+      case 'feature': return <span className="badge badge-primary">✨</span>;
+      default: return <span className="badge badge-secondary">{type}</span>;
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
@@ -58,6 +67,7 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
         <thead>
           <tr>
             <th>Issue</th>
+            <th>Type</th>
             <th>Source</th>
             <th>Severity</th>
             <th>Frequency</th>
@@ -80,6 +90,9 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
                     </p>
                   )}
                 </div>
+              </td>
+              <td>
+                {getTypeBadge(issue.type)}
               </td>
               <td>
                 <div className="d-flex align-center">

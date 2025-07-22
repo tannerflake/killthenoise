@@ -44,11 +44,22 @@ export const initializeDatabase = async (): Promise<void> => {
         severity INTEGER DEFAULT 1 CHECK (severity >= 1 AND severity <= 5),
         frequency INTEGER DEFAULT 1,
         status VARCHAR(50) DEFAULT 'open',
+        type VARCHAR(20) DEFAULT 'bug' CHECK (type IN ('bug', 'feature')),
         tags TEXT[],
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
+
+    // Add type column if it doesn't exist (for existing databases)
+    try {
+      await client.query(`
+        ALTER TABLE issues ADD COLUMN IF NOT EXISTS type VARCHAR(20) DEFAULT 'bug' CHECK (type IN ('bug', 'feature'));
+      `);
+    } catch (error) {
+      // Column might already exist, ignore error
+      console.log('Type column already exists or could not be added');
+    }
 
     // Create sources table for tracking data sources
     await client.query(`
