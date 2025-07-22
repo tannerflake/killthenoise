@@ -22,11 +22,7 @@ const Header: React.FC = () => {
                   Integrations
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/analytics" className="nav-link">
-                  Analytics
-                </Link>
-              </li>
+
             </ul>
           </nav>
         </div>
