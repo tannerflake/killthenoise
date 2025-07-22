@@ -46,6 +46,9 @@ export const initializeDatabase = async (): Promise<void> => {
         status VARCHAR(50) DEFAULT 'open',
         type VARCHAR(20) DEFAULT 'bug' CHECK (type IN ('bug', 'feature')),
         tags TEXT[],
+        jira_issue_key VARCHAR(50),
+        jira_status VARCHAR(50),
+        jira_exists BOOLEAN DEFAULT false,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
@@ -59,6 +62,18 @@ export const initializeDatabase = async (): Promise<void> => {
     } catch (error) {
       // Column might already exist, ignore error
       console.log('Type column already exists or could not be added');
+    }
+
+    // Add Jira tracking columns if they don't exist
+    try {
+      await client.query(`
+        ALTER TABLE issues ADD COLUMN IF NOT EXISTS jira_issue_key VARCHAR(50);
+        ALTER TABLE issues ADD COLUMN IF NOT EXISTS jira_status VARCHAR(50);
+        ALTER TABLE issues ADD COLUMN IF NOT EXISTS jira_exists BOOLEAN DEFAULT false;
+      `);
+    } catch (error) {
+      // Columns might already exist, ignore error
+      console.log('Jira tracking columns already exist or could not be added');
     }
 
     // Create sources table for tracking data sources

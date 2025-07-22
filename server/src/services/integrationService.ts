@@ -257,6 +257,8 @@ export class IntegrationService {
   static async processIngestedData(rawData: RawIssueData[]): Promise<void> {
     console.log(`📊 Processing ${rawData.length} issues from integrations...`);
     
+    const createdIssues: any[] = [];
+    
     for (const data of rawData) {
       try {
         // Check if issue already exists by source_id
@@ -275,7 +277,7 @@ export class IntegrationService {
           });
         } else {
           // Create new issue
-          await IssueModel.create({
+          const newIssue = await IssueModel.create({
             title: data.title,
             description: data.description,
             source: data.source,
@@ -284,12 +286,20 @@ export class IntegrationService {
             frequency: data.frequency || 1,
             status: 'open',
             type: data.type,
-            tags: data.tags || []
+            tags: data.tags || [],
+            jira_exists: false
           });
+          createdIssues.push(newIssue);
         }
       } catch (error) {
         console.error(`Error processing issue ${data.id}:`, error);
       }
+    }
+
+    // Process new issues for Jira matches
+    if (createdIssues.length > 0) {
+      const { JiraService } = await import('./jiraService');
+      await JiraService.processIssuesForJiraMatches(createdIssues);
     }
     
     console.log('✅ Finished processing ingested data');

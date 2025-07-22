@@ -12,6 +12,9 @@ export interface Issue {
   status: string;
   type: 'bug' | 'feature';
   tags?: string[];
+  jira_issue_key?: string;
+  jira_status?: string;
+  jira_exists: boolean;
   created_at?: Date;
   updated_at?: Date;
 }
@@ -94,8 +97,8 @@ export class IssueModel {
   // Create new issue
   static async create(issueData: Omit<Issue, 'id' | 'created_at' | 'updated_at'>): Promise<Issue> {
     const query = `
-      INSERT INTO issues (title, description, source, source_id, severity, frequency, status, type, tags)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO issues (title, description, source, source_id, severity, frequency, status, type, tags, jira_issue_key, jira_status, jira_exists)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       RETURNING *
     `;
     
@@ -108,7 +111,10 @@ export class IssueModel {
       issueData.frequency,
       issueData.status,
       issueData.type,
-      issueData.tags
+      issueData.tags,
+      issueData.jira_issue_key,
+      issueData.jira_status,
+      issueData.jira_exists
     ];
 
     const result = await pool.query(query, values);
@@ -117,7 +123,7 @@ export class IssueModel {
 
   // Update issue
   static async update(id: number, updateData: Partial<Issue>): Promise<Issue | null> {
-    const fields = Object.keys(updateData).filter(key => key !== 'id' && key !== 'created_at');
+    const fields = Object.keys(updateData).filter(key => key !== 'id' && key !== 'created_at' && key !== 'updated_at');
     const setClause = fields.map((field, index) => `${field} = $${index + 2}`).join(', ');
     
     if (fields.length === 0) return null;

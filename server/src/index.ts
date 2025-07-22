@@ -53,6 +53,28 @@ app.post('/api/integrations/test', async (req, res) => {
   }
 });
 
+// Jira matching endpoint
+app.post('/api/jira/match-all', async (req, res) => {
+  try {
+    console.log('🔍 Running Jira matching for all issues...');
+    const { JiraService } = await import('./services/jiraService');
+    await JiraService.processAllExistingIssues();
+    res.json({
+      success: true,
+      message: 'Jira matching completed successfully'
+    });
+  } catch (error) {
+    console.error('Jira matching failed:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Jira matching failed',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+
+
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({

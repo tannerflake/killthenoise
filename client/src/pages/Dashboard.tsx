@@ -13,6 +13,9 @@ interface Issue {
   status: string;
   type: 'bug' | 'feature';
   tags?: string[];
+  jira_issue_key?: string;
+  jira_status?: string;
+  jira_exists: boolean;
   created_at: string;
   updated_at: string;
 }

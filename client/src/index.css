@@ -400,6 +400,21 @@ a:hover {
   justify-content: center;
 }
 
+/* Jira column styling */
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 100px;
+  text-align: center;
+}
+
+/* Jira status badges */
+.table td:nth-child(3) .badge {
+  font-size: 1.1rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  min-width: 35px;
+  justify-content: center;
+}
+
 /* Integration Status */
 .integration-item {
   padding: var(--spacing-sm) 0;
@@ -619,5 +634,12 @@ a:hover {
     font-size: 1rem;
     padding: var(--spacing-xs) var(--spacing-sm);
     min-width: 35px;
+  }
+
+  /* Smaller Jira badges on mobile */
+  .table td:nth-child(3) .badge {
+    font-size: 0.9rem;
+    padding: var(--spacing-xs);
+    min-width: 25px;
   }
 } 

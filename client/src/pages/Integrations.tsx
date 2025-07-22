@@ -6,19 +6,33 @@ const Integrations: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  const runIntegrationTest = async () => {
-    try {
-      setLoading(true);
-      setMessage(null);
-      await axios.post('/api/integrations/test');
-      setMessage('Integration test completed successfully!');
-    } catch (err) {
-      console.error('Error running integration test:', err);
-      setMessage('Failed to run integration test. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+                const runIntegrationTest = async () => {
+                try {
+                  setLoading(true);
+                  setMessage(null);
+                  await axios.post('/api/integrations/test');
+                  setMessage('Integration test completed successfully!');
+                } catch (err) {
+                  console.error('Error running integration test:', err);
+                  setMessage('Failed to run integration test. Please try again.');
+                } finally {
+                  setLoading(false);
+                }
+              };
+
+              const runJiraMatching = async () => {
+                try {
+                  setLoading(true);
+                  setMessage(null);
+                  await axios.post('/api/jira/match-all');
+                  setMessage('Jira matching completed successfully!');
+                } catch (err) {
+                  console.error('Error running Jira matching:', err);
+                  setMessage('Failed to run Jira matching. Please try again.');
+                } finally {
+                  setLoading(false);
+                }
+              };
 
   return (
     <div className="integrations-page">
@@ -31,13 +45,32 @@ const Integrations: React.FC = () => {
           </p>
         </div>
 
-        {/* Integration Status */}
-        <div className="integration-content">
-          <IntegrationStatus 
-            onRunIntegrationTest={runIntegrationTest}
-            loading={loading}
-          />
-        </div>
+                            {/* Integration Status */}
+                    <div className="integration-content">
+                      <IntegrationStatus
+                        onRunIntegrationTest={runIntegrationTest}
+                        loading={loading}
+                      />
+                    </div>
+
+                    {/* Jira Matching */}
+                    <div className="card mt-4">
+                      <div className="card-header">
+                        <h3>Jira Integration</h3>
+                      </div>
+                      <div className="card-body">
+                        <p className="text-secondary mb-3">
+                          Use AI to match existing issues with Jira tickets and update their status.
+                        </p>
+                        <button
+                          className="btn btn-primary"
+                          onClick={runJiraMatching}
+                          disabled={loading}
+                        >
+                          {loading ? 'Processing...' : 'Run Jira Matching'}
+                        </button>
+                      </div>
+                    </div>
 
         {/* Status Message */}
         {message && (

@@ -10,6 +10,9 @@ interface Issue {
   status: string;
   type: 'bug' | 'feature';
   tags?: string[];
+  jira_issue_key?: string;
+  jira_status?: string;
+  jira_exists: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -44,6 +47,30 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
     }
   };
 
+  const getJiraStatusBadge = (issue: Issue) => {
+    if (!issue.jira_exists) {
+      return <span className="badge badge-secondary">❌</span>;
+    }
+    
+    if (!issue.jira_status) {
+      return <span className="badge badge-warning">❓</span>;
+    }
+
+    switch (issue.jira_status.toLowerCase()) {
+      case 'done':
+      case 'closed':
+        return <span className="badge badge-success">✅</span>;
+      case 'in progress':
+        return <span className="badge badge-info">🔄</span>;
+      case 'to do':
+        return <span className="badge badge-warning">📋</span>;
+      case 'backlog':
+        return <span className="badge badge-secondary">📚</span>;
+      default:
+        return <span className="badge badge-secondary">{issue.jira_status}</span>;
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
@@ -68,6 +95,12 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
           <tr>
             <th>Issue</th>
             <th>Type</th>
+            <th>
+              <div className="d-flex flex-column align-center">
+                <span>Jira</span>
+                <span className="text-xs text-secondary" title="❌ No Jira ticket | ✅ Done | 🔄 In Progress | 📋 To Do | 📚 Backlog">?</span>
+              </div>
+            </th>
             <th>Source</th>
             <th>Severity</th>
             <th>Frequency</th>
@@ -93,6 +126,16 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
               </td>
               <td>
                 {getTypeBadge(issue.type)}
+              </td>
+              <td>
+                <div className="d-flex flex-column align-center">
+                  {getJiraStatusBadge(issue)}
+                  {issue.jira_exists && issue.jira_issue_key && (
+                    <span className="text-xs text-secondary mt-1">
+                      {issue.jira_issue_key}
+                    </span>
+                  )}
+                </div>
               </td>
               <td>
                 <div className="d-flex align-center">
