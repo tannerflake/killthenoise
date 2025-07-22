@@ -129,7 +129,7 @@ export class IssueModel {
   // Delete issue
   static async delete(id: number): Promise<boolean> {
     const result = await pool.query('DELETE FROM issues WHERE id = $1', [id]);
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   // Get top issues by frequency and severity
