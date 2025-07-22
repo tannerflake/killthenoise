@@ -128,32 +128,28 @@ const Dashboard: React.FC = () => {
 
         {/* Main Content */}
         <div className="dashboard-content">
-          <div className="row">
-            {/* Issues Table */}
-            <div className="col-8">
-              <div className="card">
-                <div className="card-header">
-                  <h3>Top Product Issues</h3>
-                  <p className="text-secondary mb-0">
-                    Ranked by frequency and severity
-                  </p>
-                </div>
-                <div className="card-body">
-                  {loading ? (
-                    <div className="text-center p-4">
-                      <p>Loading issues...</p>
-                    </div>
-                  ) : (
-                    <IssueTable issues={issues} />
-                  )}
-                </div>
-              </div>
+          {/* Issues Table - Full Width */}
+          <div className="card">
+            <div className="card-header">
+              <h3>Top Product Issues</h3>
+              <p className="text-secondary mb-0">
+                Ranked by frequency and severity
+              </p>
             </div>
+            <div className="card-body">
+              {loading ? (
+                <div className="text-center p-4">
+                  <p>Loading issues...</p>
+                </div>
+              ) : (
+                <IssueTable issues={issues} />
+              )}
+            </div>
+          </div>
 
-            {/* Integration Status */}
-            <div className="col-4">
-              <IntegrationStatus />
-            </div>
+          {/* Integration Status - Below Issues Table */}
+          <div className="integration-status-section">
+            <IntegrationStatus />
           </div>
         </div>
       </div>

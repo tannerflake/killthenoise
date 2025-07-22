@@ -154,7 +154,7 @@ body {
 
 .dashboard-content {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--spacing-xl);
 }
 
@@ -351,6 +351,11 @@ a:hover {
   border-radius: var(--radius-md);
 }
 
+.integration-status-section {
+  max-width: 400px;
+  margin-top: var(--spacing-lg);
+}
+
 /* Utilities */
 .text-center { text-align: center; }
 .text-left { text-align: left; }
@@ -405,11 +410,6 @@ a:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .dashboard-content {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-  }
-  
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -435,6 +435,10 @@ a:hover {
   
   .container {
     padding: 0 var(--spacing-sm);
+  }
+  
+  .integration-status-section {
+    max-width: 100%;
   }
 }
 
