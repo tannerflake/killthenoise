@@ -1,6 +1,11 @@
 import React from 'react';
 
-const IntegrationStatus: React.FC = () => {
+interface IntegrationStatusProps {
+  onRunIntegrationTest: () => void;
+  loading: boolean;
+}
+
+const IntegrationStatus: React.FC<IntegrationStatusProps> = ({ onRunIntegrationTest, loading }) => {
   const integrations = [
     {
       name: 'Slack',
@@ -75,6 +80,16 @@ const IntegrationStatus: React.FC = () => {
             These integrations are currently using mock data. 
             Real API connections will be implemented in future phases.
           </p>
+        </div>
+        
+        <div className="integration-actions mt-4">
+          <button 
+            className="btn btn-primary w-full" 
+            onClick={onRunIntegrationTest}
+            disabled={loading}
+          >
+            {loading ? 'Running Integration Test...' : 'Run Integration Test'}
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import IssueTable from '../components/IssueTable';
-import IntegrationStatus from '../components/IntegrationStatus';
 import StatsCards from '../components/StatsCards';
 
 interface Issue {
@@ -69,19 +68,7 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const runIntegrationTest = async () => {
-    try {
-      setLoading(true);
-      await axios.post('/api/integrations/test');
-      // Refresh issues after integration test
-      await fetchTopIssues();
-    } catch (err) {
-      console.error('Error running integration test:', err);
-      setError('Failed to run integration test.');
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   if (error) {
     return (
@@ -106,20 +93,11 @@ const Dashboard: React.FC = () => {
       <div className="container">
         {/* Header */}
         <div className="dashboard-header mb-4">
-          <div className="d-flex justify-between align-center">
-            <div>
-              <h1>Product Issue Dashboard</h1>
-              <p className="text-secondary">
-                AI-powered issue triage and prioritization
-              </p>
-            </div>
-            <button 
-              className="btn btn-primary" 
-              onClick={runIntegrationTest}
-              disabled={loading}
-            >
-              {loading ? 'Running...' : 'Run Integration Test'}
-            </button>
+          <div>
+            <h1>Product Issue Dashboard</h1>
+            <p className="text-secondary">
+              AI-powered issue triage and prioritization
+            </p>
           </div>
         </div>
 
@@ -145,11 +123,6 @@ const Dashboard: React.FC = () => {
                 <IssueTable issues={issues} />
               )}
             </div>
-          </div>
-
-          {/* Integration Status - Below Issues Table */}
-          <div className="integration-status-section">
-            <IntegrationStatus />
           </div>
         </div>
       </div>

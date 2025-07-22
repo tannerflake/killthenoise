@@ -351,9 +351,90 @@ a:hover {
   border-radius: var(--radius-md);
 }
 
-.integration-status-section {
-  max-width: 400px;
+
+
+.integration-actions {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-md);
+}
+
+/* Integrations Page */
+.integrations-page {
+  padding: var(--spacing-xl) 0;
+}
+
+.page-header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.integration-content {
+  width: 100%;
+  margin-bottom: var(--spacing-xl);
+}
+
+.integration-guide h4 {
   margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.integration-list {
+  list-style: none;
+  padding: 0;
+}
+
+.integration-list li {
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.integration-list li:last-child {
+  border-bottom: none;
+}
+
+.setup-steps {
+  padding-left: var(--spacing-lg);
+}
+
+.setup-steps li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.integration-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.integration-links li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.integration-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.integration-links a:hover {
+  text-decoration: underline;
+}
+
+/* Alerts */
+.alert {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid;
+}
+
+.alert-success {
+  background-color: #dcfce7;
+  border-color: #16a34a;
+  color: #166534;
+}
+
+.alert-danger {
+  background-color: #fee2e2;
+  border-color: #dc2626;
+  color: #991b1b;
 }
 
 /* Utilities */
@@ -437,9 +518,7 @@ a:hover {
     padding: 0 var(--spacing-sm);
   }
   
-  .integration-status-section {
-    max-width: 100%;
-  }
+
 }
 
 @media (max-width: 480px) {
