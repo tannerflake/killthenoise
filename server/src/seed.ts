@@ -13,7 +13,9 @@ const seedData = [
     severity: 4,
     frequency: 15,
     status: 'open',
-    tags: ['ios', 'crash', 'urgent', 'mobile']
+    type: 'bug' as 'bug',
+    tags: ['ios', 'crash', 'urgent', 'mobile'],
+    jira_exists: false
   },
   {
     title: 'Login button not working',
@@ -23,7 +25,21 @@ const seedData = [
     severity: 3,
     frequency: 8,
     status: 'open',
-    tags: ['login', 'authentication', 'frontend']
+    type: 'bug' as 'bug',
+    tags: ['login', 'authentication', 'frontend'],
+    jira_exists: false
+  },
+  {
+    title: 'Add dark mode support',
+    description: 'Users are requesting a dark mode option for better night-time usability.',
+    source: 'google_docs',
+    source_id: 'gdocs_3',
+    severity: 2,
+    frequency: 9,
+    status: 'open',
+    type: 'feature' as 'feature',
+    tags: ['feature', 'ui', 'user-request'],
+    jira_exists: false
   },
   {
     title: 'Payment processing errors',
@@ -33,7 +49,9 @@ const seedData = [
     severity: 5,
     frequency: 25,
     status: 'open',
-    tags: ['payment', 'checkout', 'critical', 'revenue']
+    type: 'bug' as 'bug',
+    tags: ['payment', 'checkout', 'critical', 'revenue'],
+    jira_exists: false
   },
   {
     title: 'Database connection timeout',
@@ -43,7 +61,9 @@ const seedData = [
     severity: 4,
     frequency: 12,
     status: 'open',
-    tags: ['database', 'performance', 'backend', 'scalability']
+    type: 'bug' as 'bug',
+    tags: ['database', 'performance', 'backend', 'scalability'],
+    jira_exists: false
   },
   {
     title: 'User interface confusion',
@@ -53,7 +73,21 @@ const seedData = [
     severity: 2,
     frequency: 5,
     status: 'open',
-    tags: ['ui', 'ux', 'feedback', 'design']
+    type: 'bug' as 'bug',
+    tags: ['ui', 'ux', 'feedback', 'design'],
+    jira_exists: false
+  },
+  {
+    title: 'Implement multi-language support',
+    description: 'Feature request to support multiple languages for international users.',
+    source: 'hubspot',
+    source_id: 'hubspot_3',
+    severity: 2,
+    frequency: 6,
+    status: 'open',
+    type: 'feature' as 'feature',
+    tags: ['feature', 'i18n', 'user-request'],
+    jira_exists: false
   },
   {
     title: 'Email notifications not sending',
@@ -63,7 +97,9 @@ const seedData = [
     severity: 3,
     frequency: 10,
     status: 'open',
-    tags: ['email', 'notifications', 'communication']
+    type: 'bug' as 'bug',
+    tags: ['email', 'notifications', 'communication'],
+    jira_exists: false
   },
   {
     title: 'Search functionality broken',
@@ -73,37 +109,21 @@ const seedData = [
     severity: 3,
     frequency: 7,
     status: 'open',
-    tags: ['search', 'functionality', 'user-experience']
+    type: 'bug' as 'bug',
+    tags: ['search', 'functionality', 'user-experience'],
+    jira_exists: false
   },
   {
-    title: 'API rate limiting too aggressive',
-    description: 'API calls being rate limited too aggressively, affecting user experience',
-    source: 'jira',
-    source_id: 'jira_2',
-    severity: 3,
-    frequency: 6,
-    status: 'open',
-    tags: ['api', 'rate-limiting', 'performance']
-  },
-  {
-    title: 'Mobile app slow loading',
-    description: 'Mobile app taking too long to load initial screens',
-    source: 'google_docs',
-    source_id: 'gdocs_2',
-    severity: 2,
+    title: 'Add export to CSV option',
+    description: 'Users want to export their data to CSV for offline analysis.',
+    source: 'slack',
+    source_id: 'slack_5',
+    severity: 1,
     frequency: 4,
     status: 'open',
-    tags: ['mobile', 'performance', 'loading']
-  },
-  {
-    title: 'Data export feature missing',
-    description: 'Users requesting ability to export their data in various formats',
-    source: 'slack',
-    source_id: 'slack_4',
-    severity: 2,
-    frequency: 3,
-    status: 'open',
-    tags: ['feature-request', 'data-export', 'user-request']
+    type: 'feature' as 'feature',
+    tags: ['feature', 'data-export', 'user-request'],
+    jira_exists: false
   }
 ];
 

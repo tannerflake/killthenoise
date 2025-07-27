@@ -105,8 +105,6 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
             <th>Severity</th>
             <th>Frequency</th>
             <th>Status</th>
-            <th>Tags</th>
-            <th>Created</th>
           </tr>
         </thead>
         <tbody>
@@ -153,25 +151,6 @@ const IssueTable: React.FC<IssueTableProps> = ({ issues }) => {
               <td>
                 <span className={`badge ${issue.status === 'open' ? 'badge-warning' : 'badge-success'}`}>
                   {issue.status}
-                </span>
-              </td>
-              <td>
-                <div className="d-flex flex-wrap">
-                  {issue.tags && issue.tags.slice(0, 3).map((tag, index) => (
-                    <span key={index} className="badge badge-info mr-1 mb-1">
-                      {tag}
-                    </span>
-                  ))}
-                  {issue.tags && issue.tags.length > 3 && (
-                    <span className="badge badge-secondary">
-                      +{issue.tags.length - 3}
-                    </span>
-                  )}
-                </div>
-              </td>
-              <td>
-                <span className="text-secondary text-sm">
-                  {formatDate(issue.created_at)}
                 </span>
               </td>
             </tr>

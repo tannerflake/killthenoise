@@ -117,9 +117,6 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <StatsCards stats={stats} />
-
         {/* Main Content */}
         <div className="dashboard-content">
           {/* Issues Table - Full Width */}

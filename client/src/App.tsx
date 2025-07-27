@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Integrations from './pages/Integrations';
+import HubSpotTickets from './pages/HubSpotTickets';
 import Header from './components/Header';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/integrations" element={<Integrations />} />
+          <Route path="/hubspot" element={<HubSpotTickets />} />
         </Routes>
       </main>
     </div>

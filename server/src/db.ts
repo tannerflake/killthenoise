@@ -103,6 +103,18 @@ export const initializeDatabase = async (): Promise<void> => {
       );
     `);
 
+    // Create hubspot_tokens table for storing HubSpot OAuth tokens
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS hubspot_tokens (
+        id SERIAL PRIMARY KEY,
+        access_token TEXT NOT NULL,
+        refresh_token TEXT NOT NULL,
+        expires_at TIMESTAMP NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
     console.log('Database tables initialized successfully');
     client.release();
   } catch (error) {

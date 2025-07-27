@@ -71,7 +71,7 @@ export class IssueController {
   // Create new issue
   static async createIssue(req: Request, res: Response): Promise<void> {
     try {
-      const { title, description, source, source_id, severity, frequency, status, tags } = req.body;
+      const { title, description, source, source_id, severity, frequency, status, tags, type, jira_exists } = req.body;
 
       // Validation
       if (!title || !source) {
@@ -98,7 +98,9 @@ export class IssueController {
         severity: severity || 1,
         frequency: frequency || 1,
         status: status || 'open',
-        tags: tags || []
+        tags: tags || [],
+        type: type || 'bug',
+        jira_exists: typeof jira_exists === 'boolean' ? jira_exists : false
       };
 
       const newIssue = await IssueModel.create(issueData);

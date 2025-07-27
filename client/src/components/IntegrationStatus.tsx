@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface IntegrationStatusProps {
   onRunIntegrationTest: () => void;
@@ -6,6 +7,21 @@ interface IntegrationStatusProps {
 }
 
 const IntegrationStatus: React.FC<IntegrationStatusProps> = ({ onRunIntegrationTest, loading }) => {
+  const [hubspotConnected, setHubspotConnected] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const res = await axios.get('/api/hubspot/status');
+        setHubspotConnected(res.data.connected);
+      } catch (err) {
+        console.error('Error fetching HubSpot status:', err);
+        setHubspotConnected(false);
+      }
+    };
+    fetchStatus();
+  }, []);
+
   const integrations = [
     {
       name: 'Slack',
@@ -16,7 +32,7 @@ const IntegrationStatus: React.FC<IntegrationStatusProps> = ({ onRunIntegrationT
     {
       name: 'HubSpot',
       icon: '📊',
-      status: 'active',
+      status: hubspotConnected ? 'active' : 'inactive',
       description: 'Support tickets & feedback'
     },
     {

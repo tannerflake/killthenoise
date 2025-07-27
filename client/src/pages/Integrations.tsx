@@ -72,6 +72,24 @@ const Integrations: React.FC = () => {
                       </div>
                     </div>
 
+                    {/* HubSpot Integration */}
+                    <div className="card mt-4">
+                      <div className="card-header">
+                        <h3>HubSpot Integration</h3>
+                      </div>
+                      <div className="card-body">
+                        <p className="text-secondary mb-3">
+                          Connect your HubSpot account to import support tickets and customer feedback.
+                        </p>
+                        <a
+                          className="btn btn-orange"
+                          href="https://app-na2.hubspot.com/oauth/authorize?client_id=c4f6d977-f797-4c43-9e9d-9bc867ea01ac&redirect_uri=http://localhost:5001/api/hubspot/callback&scope=tickets%20oauth"
+                        >
+                          Connect to HubSpot
+                        </a>
+                      </div>
+                    </div>
+
         {/* Status Message */}
         {message && (
           <div className={`alert ${message.includes('successfully') ? 'alert-success' : 'alert-danger'} mt-4`}>

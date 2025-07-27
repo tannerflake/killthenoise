@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { initializeDatabase } from './db';
 import issueRoutes from './routes/issues';
+import hubspotRoutes from './routes/hubspot';
 import { IntegrationService } from './services/integrationService';
 
 // Load environment variables
@@ -32,6 +33,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/issues', issueRoutes);
+app.use('/api/hubspot', hubspotRoutes);
 
 // Integration test endpoint
 app.post('/api/integrations/test', async (req, res) => {
